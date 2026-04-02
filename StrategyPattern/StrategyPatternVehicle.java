@@ -42,6 +42,67 @@
 
 // With Strategy Pattern
 
+interface DriveStrategy {
+    public void drive();
+}
+
+class NormalDrive implements DriveStrategy {
+    @Override
+    public void drive() {
+        System.out.println("Normal Drive");
+    }
+}
+
+class SportsDrive implements DriveStrategy {
+    @Override
+    public void drive() {
+        System.out.println("Sports Drive");
+    }
+}
+
+class Vehicle {
+    DriveStrategy driveStrategy;
+
+    public Vehicle(DriveStrategy driveStrategy) {
+        this.driveStrategy = driveStrategy;
+    }
+
+    public void drive() {
+        driveStrategy.drive();
+    }
+}
+
+class SportsVehicle extends Vehicle {
+    public SportsVehicle(DriveStrategy driveStrategy) {
+        super(driveStrategy);
+    }
+}
+
+class GoodsVehicle extends Vehicle {
+    public GoodsVehicle(DriveStrategy driveStrategy) {
+        super(driveStrategy);
+    }
+}
+
+class OffRoadVehicle extends Vehicle {
+    public OffRoadVehicle(DriveStrategy driveStrategy) {
+        super(driveStrategy);
+    }
+}
+
+public class StrategyPatternVehicle {
+    public static void main(String[] args) {
+        Vehicle vehicle = new SportsVehicle(new SportsDrive());
+        vehicle.drive();
+
+        vehicle = new GoodsVehicle(new NormalDrive());
+        vehicle.drive();
+
+        vehicle = new OffRoadVehicle(new SportsDrive());
+        vehicle.drive();
+    }
+}
+
 
 
 
