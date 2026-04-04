@@ -1,10 +1,17 @@
 import java.util.*;
 
+// ---------------- STRATEGY ----------------
+interface WinningStrategy {
+    boolean checkWinner(Player player, int row, int col);
+}
+
 class Player {
+    int id;
     String name;
     char symbol;
 
-    public Player(String name, char symbol) {
+    public Player(int id, String name, char symbol) {
+        this.id = id;
         this.name = name;
         this.symbol = symbol;
     }
@@ -61,40 +68,76 @@ class Board {
     }
 }
 
-class Game {
-    Board board;
-    Queue<Player> players;
+class SimpleWinningStrategy implements WinningStrategy {
+    Map<Integer, int[]> rowMap;
+    Map<Integer, int[]> colMap;
+    Map<Integer, Integer> diagMap;
+    Map<Integer, Integer> antiDiagMap;
 
-    Map<Player, int[]> rowMap;
-    Map<Player, int[]> colMap;
-    Map<Player, Integer> diagMap;
-    Map<Player, Integer> antiDiagMap;
+    int size;
 
-    public Game(int n) {
-        board = new Board(n);
-        players = new LinkedList<>();
-
-        Player p1 = new Player("Player1", 'X');
-        Player p2 = new Player("Player2", 'O');
-
-        players.add(p1);
-        players.add(p2);
+    public SimpleWinningStrategy(int size, List<Player> players) {
+        this.size = size;
 
         rowMap = new HashMap<>();
         colMap = new HashMap<>();
         diagMap = new HashMap<>();
         antiDiagMap = new HashMap<>();
 
-        rowMap.put(p1, new int[n]);
-        rowMap.put(p2, new int[n]);
+        for (Player p : players) {
+            rowMap.put(p.id, new int[size]);
+            colMap.put(p.id, new int[size]);
+            diagMap.put(p.id, 0);
+            antiDiagMap.put(p.id, 0);
+        }
+    }
 
-        colMap.put(p1, new int[n]);
-        colMap.put(p2, new int[n]);
+    @Override
+     public boolean checkWinner(Player player, int row, int col) {
+            int id = player.id;
+            int[] rows = rowMap.get(id);
+            int[] cols = colMap.get(id);
 
-        diagMap.put(p1, 0);
-        antiDiagMap.put(p1, 0);
-        diagMap.put(p2, 0);
-        antiDiagMap.put(p2, 0);
+            rows[row]++;    
+            cols[col]++;
+
+            if (row == col) {
+                diagMap.put(id, diagMap.get(id) + 1);
+            }
+
+            if (row + col == size - 1) {
+                antiDiagMap.put(id, antiDiagMap.get(id) + 1);
+            }
+
+            // Check win
+            if (rows[row] == size ||
+                cols[col] == size ||
+                diagMap.get(id) == size ||
+                antiDiagMap.get(id) == size) {
+                return true;
+            }
+
+            return false;
+    }
+}
+
+class Game {
+    Board board;
+    Queue<Player> players;
+    WinningStrategy winningStrategy;
+
+    public Game(int n) {
+        board = new Board(n);
+        players = new LinkedList<>();
+
+        Player p1 = new Player(1, "Player1", 'X');
+        Player p2 = new Player(2, "Player2", 'O');
+
+        players.add(p1);
+        players.add(p2);
+
+        List<Player> playerList = Arrays.asList(p1, p2);
+        winningStrategy = new SimpleWinningStrategy(n, playerList);
     }
 
     public void start() {
@@ -114,7 +157,7 @@ class Game {
             System.out.println("Enter column");
             int col = sc.nextInt();
 
-            if(!board.makeMove(row, col, current.symbol)) {
+                if(!board.makeMove(row, col, current.symbol)) {
                 System.out.println("Invalid move, try again");
                 players.add(current);
                 continue;
@@ -122,30 +165,12 @@ class Game {
 
             moves++;
 
-            int[] rows = rowMap.get(current);
-            int[] cols = colMap.get(current);
-
-            rows[row]++;    
-            cols[col]++;
-
-            if (row == col) {
-                diagMap.put(current, diagMap.get(current) + 1);
-            }
-
-            if (row + col == size - 1) {
-                antiDiagMap.put(current, antiDiagMap.get(current) + 1);
-            }
-
-            // Check win
-            if (rows[row] == size ||
-                cols[col] == size ||
-                diagMap.get(current) == size ||
-                antiDiagMap.get(current) == size) {
-
+            if (winningStrategy.checkWinner(current, row, col)) {
                 board.printBoard();
                 System.out.println(current.name + " wins!");
                 return;
             }
+           
 
             if(moves == (size * size)) {
                 board.printBoard();
@@ -158,7 +183,7 @@ class Game {
     }
 }
 
-public class TicTacToe {
+public class TicTacToeUsingStrategy {
     public static void main(String[] args) {
         Game game = new Game(3);
         game.start();
