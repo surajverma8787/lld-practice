@@ -1,20 +1,20 @@
 import java.util.*;
 
-class Player {
+class Player1 {
     String name;
     char symbol;
 
-    public Player(String name, char symbol) {
+    public Player1(String name, char symbol) {
         this.name = name;
         this.symbol = symbol;
     }
 }
 
-class Cell {
+class Cell1 {
     int row, col;
     char value;
 
-    public Cell(int row, int col) {
+    public Cell1(int row, int col) {
         this.row = row;
         this.col = col;
         this.value = '-';
@@ -25,17 +25,17 @@ class Cell {
     }
 }
 
-class Board {
+class Board1 {
     int size;
-    Cell[][] grid;
+    Cell1[][] grid;
 
-    Board(int size) {
+    Board1(int size) {
         this.size = size;
-        grid = new Cell[size][size];
+        grid = new Cell1[size][size];
 
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
-                grid[i][j] = new Cell(i, j);
+                grid[i][j] = new Cell1(i, j);
             }
         }
     }
@@ -61,21 +61,21 @@ class Board {
     }
 }
 
-class Game {
+class Game1 {
     Board board;
-    Queue<Player> players;
+    Queue<Player1> players;
 
-    Map<Player, int[]> rowMap;
-    Map<Player, int[]> colMap;
-    Map<Player, Integer> diagMap;
-    Map<Player, Integer> antiDiagMap;
+    Map<Player1, int[]> rowMap;
+    Map<Player1, int[]> colMap;
+    Map<Player1, Integer> diagMap;
+    Map<Player1, Integer> antiDiagMap;
 
-    public Game(int n) {
+    public Game1(int n) {
         board = new Board(n);
         players = new LinkedList<>();
 
-        Player p1 = new Player("Player1", 'X');
-        Player p2 = new Player("Player2", 'O');
+        Player1 p1 = new Player1("Player1", 'X');
+        Player1 p2 = new Player1("Player2", 'O');
 
         players.add(p1);
         players.add(p2);
@@ -105,7 +105,7 @@ class Game {
         while(true) {
             board.printBoard();
 
-            Player current = players.poll();
+            Player1 current = players.poll();
             System.out.println(current.name + "'s turn");
 
             System.out.println("Enter row");

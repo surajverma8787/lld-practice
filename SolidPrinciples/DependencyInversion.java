@@ -138,11 +138,11 @@
 // }
 
 // Abstractions remain the same
-public interface Keyboard {
+interface Keyboard {
     void getSpecifications();
 }
 
-public interface Mouse {
+interface Mouse {
     void getSpecifications();
 }
 

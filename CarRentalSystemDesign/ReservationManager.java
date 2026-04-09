@@ -1,4 +1,6 @@
-import java.util.*
+import java.util.*;
+import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReservationManager {
 
@@ -10,6 +12,10 @@ public class ReservationManager {
         this.inventory = inventory;
         this.reservationRepository = new ReservationRepository();
         this.inventory.setReservationRepository(this.reservationRepository);
+    }
+
+    public Optional<Reservation> findByID(int reservationId) {
+        return reservationRepository.findById(reservationId);
     }
 
     public Reservation createReservation(int vehicleId, User user,
@@ -25,51 +31,50 @@ public class ReservationManager {
         }
 
         Reservation reservation = new Reservation(reservationId, vehicleId,
-                user.getUserId(), from, to, type);
+                user.getUserID(), from, to, type);
 
         reservationRepository.save(reservation);
         return reservation;
     }
 
     public void cancelReservation(int reservationId) throws Exception {
-        Reservation reservation = reservationRepository.getReservationById(reservationId);
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
 
         if(!reservation.isPresent()) {
             throw new RuntimeException("Reservation not found");
         }
 
-        reservation.setReservationStatus(ReservationStatus.CANCELLED);
+        reservation.get().setReservationStatus(ReservationStatus.CANCELLED);
 
         inventory.release(
-                reservation.getVehicleId(),
-                reservation.getReservationId());
+                reservation.get().getVehicleId(),
+                reservation.get().getReservationId());
 
         reservationRepository.remove(reservationId);
     }
 
     public void startTrip(int reservationId) {
-        Reservation r = reservationRepository.getReservationById(reservationId)
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
         
         if(!reservation.isPresent()) {
             throw new RuntimeException("Reservation not found");
         }
 
-        reservation.setReservationStatus(ReservationStatus.IN_USE);
+        reservation.get().setReservationStatus(ReservationStatus.IN_USE);
     }
 
      public void submitVehicle(int reservationId) {
-
-        Reservation r = reservationRepository.getReservationById(reservationId)
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
         
         if(!reservation.isPresent()) {
             throw new RuntimeException("Reservation not found");
         }
 
-        reservation.setReservationStatus(ReservationStatus.COMPLETED);
+        reservation.get().setReservationStatus(ReservationStatus.COMPLETED);
 
         inventory.release(
-            reservation.getVehicleId(),
-            reservation.getReservationId()
+            reservation.get().getVehicleId(),
+            reservation.get().getReservationId()
         );
     }
 

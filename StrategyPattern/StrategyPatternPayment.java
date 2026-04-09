@@ -30,10 +30,10 @@ interface PaymentStrategy {
     public void processPayment(double amount);
 }
 
-class CreditCardPayment implements PaymentStrategy {
+class CreditCardPayment1 implements PaymentStrategy {
     String cardNumber;
 
-    CreditCardPayment(String cardNumber) {
+    CreditCardPayment1(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -71,7 +71,7 @@ class ProcessPayment {
 
 public class StrategyPatternPayment {
     public static void main(String[] args) {
-        ProcessPayment process = new ProcessPayment(new CreditCardPayment("123"));
+        ProcessPayment process = new ProcessPayment(new CreditCardPayment1("123"));
         process.processPayment(12);
     }
 }

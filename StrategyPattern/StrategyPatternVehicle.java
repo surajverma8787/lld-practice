@@ -60,10 +60,10 @@ class SportsDrive implements DriveStrategy {
     }
 }
 
-class Vehicle {
+class Vehicle1 {
     DriveStrategy driveStrategy;
 
-    public Vehicle(DriveStrategy driveStrategy) {
+    public Vehicle1(DriveStrategy driveStrategy) {
         this.driveStrategy = driveStrategy;
     }
 
@@ -72,19 +72,19 @@ class Vehicle {
     }
 }
 
-class SportsVehicle extends Vehicle {
+class SportsVehicle extends Vehicle1 {
     public SportsVehicle(DriveStrategy driveStrategy) {
         super(driveStrategy);
     }
 }
 
-class GoodsVehicle extends Vehicle {
+class GoodsVehicle extends Vehicle1 {
     public GoodsVehicle(DriveStrategy driveStrategy) {
         super(driveStrategy);
     }
 }
 
-class OffRoadVehicle extends Vehicle {
+class OffRoadVehicle extends Vehicle1 {
     public OffRoadVehicle(DriveStrategy driveStrategy) {
         super(driveStrategy);
     }
@@ -92,7 +92,7 @@ class OffRoadVehicle extends Vehicle {
 
 public class StrategyPatternVehicle {
     public static void main(String[] args) {
-        Vehicle vehicle = new SportsVehicle(new SportsDrive());
+        Vehicle1 vehicle = new SportsVehicle(new SportsDrive());
         vehicle.drive();
 
         vehicle = new GoodsVehicle(new NormalDrive());

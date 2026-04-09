@@ -1,17 +1,16 @@
-import java.util.*;
 
 public class User {
-    private int userID;
+    private String userID;
     private String drivingLicenseNum;
     private String userName;
 
-    public User(int userID, String drivingLicenseNum, String userName) {
+    public User(String userID, String drivingLicenseNum, String userName) {
         this.userID = userID;
         this.drivingLicenseNum = drivingLicenseNum;
         this.userName = userName;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 

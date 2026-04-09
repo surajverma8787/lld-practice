@@ -1,3 +1,10 @@
+import java.util.*;
+import java.time.LocalDate;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
+
 public class VehicleInventoryManager {
      // vehicleId → Vehicle
     private final ConcurrentMap<Integer, Vehicle> vehicles = new ConcurrentHashMap<>();
@@ -38,12 +45,12 @@ public class VehicleInventoryManager {
         }
 
         for (int reservationID : reservationIDs) {
-             Reservation res = reservationRepository.getReservationById(resId);
+             Reservation reservation = reservationRepository.findById(reservationID).get();
 
-            if (res == null) continue;
+            if (reservation == null) continue;
 
-            if (res.getReservationStatus() == ReservationStatus.CANCELLED ||
-                res.getReservationStatus() == ReservationStatus.COMPLETED) {
+            if (reservation.getReservationStatus() == ReservationStatus.CANCELLED ||
+                    reservation.getReservationStatus() == ReservationStatus.COMPLETED) {
                 continue;
             }
 
@@ -75,6 +82,39 @@ public class VehicleInventoryManager {
             lock.unlock();
         }
       }
+
+      public void release(int vehicleId, int reservationId) {
+         ReentrantLock lock = lockForVehicle(vehicleId);
+         lock.lock();
+
+        try {
+            List<Integer> reservationIds = vehicleBookingIds.get(vehicleId);
+
+            if (reservationIds != null) {
+                reservationIds.remove(Integer.valueOf(reservationId));
+            }
+
+            // Optional: clean up empty list
+            if (reservationIds != null && reservationIds.isEmpty()) {
+                vehicleBookingIds.remove(vehicleId);
+            }
+
+        } finally {
+            lock.unlock();
+        }
+      }
+
+      public List<Vehicle> getAvailableVehicles(
+        VehicleType type,
+        LocalDate from,
+        LocalDate to
+    ) {
+        return vehicles.values()
+                .stream()
+                .filter(v -> v.getVehicleType() == type)
+                .filter(v -> isAvailable(v.getVehicleID(), from, to))
+                .collect(Collectors.toList());
+    }
 
 
 

@@ -6,7 +6,6 @@ public class VehicleRentalSystem {
     List<User> userList;
 
     public VehicleRentalSystem(){
-
         storeList = new ArrayList<>();
         userList = new ArrayList<>();
     }
@@ -34,7 +33,7 @@ public class VehicleRentalSystem {
         storeList.removeIf(store -> store.getStoreId() == storeId);
     }
 
-    public void removeUser(int userId) {
-        userList.removeIf(user -> user.getUserId() == userId);
+    public void removeUser(String userId) {
+        userList.removeIf(user -> user.getUserID() == userId);
     }
 }

@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.time.LocalDate;
 
@@ -35,7 +36,7 @@ public class Store {
 
     // ----------------- Update Reservation -----------------
 
-    public void cancelReservation(int reservationId) {
+    public void cancelReservation(int reservationId) throws Exception {
         reservationManager.cancelReservation(reservationId);
     }
 

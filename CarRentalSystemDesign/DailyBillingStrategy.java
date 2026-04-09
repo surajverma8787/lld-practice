@@ -1,3 +1,7 @@
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class DailyBillingStrategy implements BillingStrategy {
 
     VehicleInventoryManager vehicleInventoryManager;
@@ -16,7 +20,7 @@ public class DailyBillingStrategy implements BillingStrategy {
                 reservation.getDateBookedTo()
         ) + 1;
 
-        Vehicle vehicle = vehicleInventoryManager.getVehicle(reservation.getVehicleId()).get();
+        Vehicle vehicle = vehicleInventoryManager.getVehicleById(reservation.getVehicleId());
         double rate = vehicle.getDailyRentalCost();
 
         double total = days * rate;

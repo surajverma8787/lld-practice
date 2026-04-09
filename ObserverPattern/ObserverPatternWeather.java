@@ -97,12 +97,12 @@ class ForecastDisplay implements WeatherNotificationObserver {
     }
 }
 
-class EmailNotificationObserver implements WeatherNotificationObserver {
+class EmailWeatherNotificationObserver implements WeatherNotificationObserver {
 
     private final String email;
     private final WeatherObservable weatherStation;
 
-    public EmailNotificationObserver(String email, WeatherObservable weatherStation) {
+    public EmailWeatherNotificationObserver(String email, WeatherObservable weatherStation) {
         this.email = email;
         this.weatherStation = weatherStation;
     }
@@ -150,8 +150,8 @@ ForecastDisplay(weatherStation);
     weatherStation.addWeatherObserver(forecastDisplay);
 
 
-    EmailNotificationObserver emailObserver =
-                new EmailNotificationObserver("suraj@gmail.com", weatherStation);
+    EmailWeatherNotificationObserver emailObserver =
+                new EmailWeatherNotificationObserver("suraj@gmail.com", weatherStation);
     SMSNotificationObserver smsObserver =
                 new SMSNotificationObserver("9876543210", weatherStation);
 

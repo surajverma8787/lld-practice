@@ -6,11 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/AbstractFactory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DecoratorPattern" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Elevator" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/FactoryPattern" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ObserverPattern" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SolidPrinciples" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/StrategyPattern" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/TicTacToe" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CarRentalSystemDesign" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/FactoryPattern" />
+      <excludeFolder url="file://$MODULE_DIR$/StrategyPattern" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

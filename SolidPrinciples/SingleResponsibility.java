@@ -1,10 +1,10 @@
-class Marker {
+class Marker1 {
     private String name;
     private String color;
     private int price;
     private int year;
 
-    Marker(String name, String color, int price, int year) {
+    Marker1(String name, String color, int price, int year) {
         this.name = name;
         this.color = color;
         this.price = price;
@@ -46,12 +46,12 @@ class Marker {
 
 
 // Lets break down the SRP - 
-class Invoice {
-    private Marker marker;
+class Invoice1 {
+    private Marker1 marker;
     private int quantity;
     private int total;
 
-    public Invoice(Marker marker, int quantity) {
+    public Invoice1(Marker1 marker, int quantity) {
         this.marker = marker;
         this.quantity = quantity;
     }
@@ -65,7 +65,7 @@ class Invoice {
         return total;
     }
 
-    public Marker getMarker() {
+    public Marker1 getMarker() {
         return marker;
     }
 
@@ -74,30 +74,30 @@ class Invoice {
     }
 }
 
-class InvoiceDao {
-    Invoice invoice;
+class InvoiceDao1 {
+    Invoice1 invoice;
 
-    public InvoiceDao(Invoice invoice) {
+    public InvoiceDao1(Invoice1 invoice) {
         this.invoice = invoice;
     }
 
     public void saveToDB() {
-        Marker marker = invoice.getMarker(); 
+        Marker1 marker = invoice.getMarker();
         int total = invoice.getTotal();
         String name = marker.getName();
         System.out.println("Saved to db" + total + name);
     }
 }
 
-class InvoicePrinter {
-    Invoice invoice;
+class InvoicePrinter1 {
+    Invoice1 invoice;
 
-    public InvoicePrinter(Invoice invoice) {
+    public InvoicePrinter1(Invoice1 invoice) {
         this.invoice = invoice;
     }
 
     public void printInvoice() {
-        Marker marker = invoice.getMarker(); 
+        Marker1 marker = invoice.getMarker();
         String name = marker.getName();
         
         System.out.println("Printing Invoice for name" + name);
@@ -106,12 +106,12 @@ class InvoicePrinter {
 
 public class SingleResponsibility {
     public static void main(String[] args) {
-        Invoice invoice = new Invoice(new Marker("Sm", "red", 20, 2023), 10);
-        InvoiceDao invoiceDao = new InvoiceDao(invoice);
-        InvoicePrinter invoicePrinter = new InvoicePrinter(invoice);
+        Invoice1 invoice = new Invoice1(new Marker1("Sm", "red", 20, 2023), 10);
+        InvoiceDao1 invoiceDao1 = new InvoiceDao1(invoice);
+        InvoicePrinter1 invoicePrinter = new InvoicePrinter1(invoice);
 
         invoice.calculateTotal();
-        invoiceDao.saveToDB();
+        invoiceDao1.saveToDB();
         invoicePrinter.printInvoice();
     }
 }
