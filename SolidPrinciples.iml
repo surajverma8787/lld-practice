@@ -9,9 +9,10 @@
       <sourceFolder url="file://$MODULE_DIR$/ObserverPattern" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SolidPrinciples" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/TicTacToe" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CarRentalSystemDesign" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/LoggerDesign" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/FactoryPattern" />
       <excludeFolder url="file://$MODULE_DIR$/StrategyPattern" />
+      <excludeFolder url="file://$MODULE_DIR$/CarRentalSystemDesign" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
