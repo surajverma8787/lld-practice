@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/AbstractFactory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DecoratorPattern" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ATMMachine" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/BookMyShow" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/FactoryPattern" />
       <excludeFolder url="file://$MODULE_DIR$/StrategyPattern" />
       <excludeFolder url="file://$MODULE_DIR$/CarRentalSystemDesign" />
