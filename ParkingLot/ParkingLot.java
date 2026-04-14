@@ -1,7 +1,9 @@
 import java.util.HashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ParkingLot {
     private HashMap<Integer, ParkingSpot> spots;
+    private ReentrantLock lock = new ReentrantLock();
 
     public ParkingLot(int totalSpots) {
         spots = new HashMap<>();
@@ -11,17 +13,28 @@ public class ParkingLot {
     }
 
     public ParkingSpot findSpot() {
-        for (ParkingSpot spot : spots.values()) {
-            if (spot.isEmpty()) {
-                return spot;
+        lock.lock();
+        try {
+            for (ParkingSpot spot : spots.values()) {
+                if (spot.isEmpty()) {
+                    spot.setEmpty(false); // Mark immediately inside lock
+                    return spot;
+                }
             }
+            return null;
+        } finally {
+            lock.unlock();
         }
-        return null; // No spot available
     }
 
     public void updateSpot(int spotId, boolean isEmpty) {
-        if (spots.containsKey(spotId)) {
-            spots.get(spotId).setEmpty(isEmpty);
+        lock.lock();
+        try {
+            if (spots.containsKey(spotId)) {
+                spots.get(spotId).setEmpty(isEmpty);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
