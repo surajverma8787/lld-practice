@@ -13,7 +13,11 @@ type FileService struct {
 func (s *FileService) UploadFile(file multipart.File, fileName string) (string, error) {
 	fileID := uuid.New().String()
 
-	url := UploadToStorage(fileID)
+	url, uploadErr := UploadToStorage(fileID, file)
+
+	if uploadErr != nil {
+		return "", uploadErr
+	}
 
 	err := s.Repo.Save(fileID, fileName, url)
 

@@ -29,8 +29,8 @@ func (h *FileHandler) GetUploadURL(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		fileID: fileID,
-		url:    url,
+		"fileID": fileID,
+		"url":    url,
 	})
 }
 
