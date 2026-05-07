@@ -143,16 +143,11 @@ func NewPushNotificationObserver(
 }
 
 func (p *PushNotificationObserver) Update() {
-
 	println(
 		"PUSH NOTIFICATION SENT to:",
 		p.deviceToken,
 		"Product back in stock!",
 	)
-}
-
-func (p *PushNotificationObserver) GetNotificationMethod() string {
-	return "Push Notification"
 }
 
 func (p *PushNotificationObserver) GetUserID() string {
