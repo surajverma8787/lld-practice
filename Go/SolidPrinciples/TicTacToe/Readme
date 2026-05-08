@@ -1,0 +1,35 @@
+Functional Requirements - 1. Two player game
+2. Player should select symbol
+3. Players takes alternate turns
+4. Detect Winner
+5. Detect Draw
+6. N*N Board
+
+
+Game
+Responsible for:
+starting game
+switching turns
+asking current player for move
+checking if game ended
+announcing winner
+
+
+Board
+Responsible for:
+maintaining cells
+validating move
+placing symbol
+checking row/column/diagonal win
+checking board full
+
+
+Player
+Responsible for:
+player info
+symbol
+
+Cell
+Responsible for:
+position
+current symbol/value
